@@ -32,10 +32,21 @@ function DateCounter() {
   // function countDecrease() {
   //   setCount(count - 1);
   // }
+  function handleChange(event) {
+    const value = event.target.value;
+    console.log(event.target.value);
+    //event.preventDefault();
+    setStep(Number(value));
+  }
+
+  function handleReset() {
+    setCount(0);
+    setStep(1);
+  }
 
   return (
     <div>
-      <div
+      {/* <div
         style={{
           display: "flex",
           alignItems: "center",
@@ -45,7 +56,24 @@ function DateCounter() {
         <button onClick={() => setStep((c) => c - 1)}>-</button>
         <p style={{ fontWeight: "bold", margin: "5px" }}>Step: {step}</p>
         <button onClick={() => setStep((i) => i + 1)}>+</button>
+      </div> */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <input
+          value={step}
+          type="range"
+          min="1"
+          max="10"
+          onChange={handleChange}
+        />
+        <p>{step}</p>
       </div>
+
       <div
         style={{
           display: "flex",
@@ -54,7 +82,12 @@ function DateCounter() {
         }}
       >
         <button onClick={() => setCount((c) => c - step)}>-</button>
-        <p style={{ fontWeight: "bold", margin: "5px" }}>Count: {count}</p>
+        {/* <p style={{ fontWeight: "bold", margin: "5px" }}>Count: {count}</p> */}
+        <input
+          type="text"
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))}
+        />
         <button onClick={() => setCount((c) => c + step)}>+</button>
       </div>
       <p style={{ textAlign: "center", fontSize: "24px" }}>
@@ -68,6 +101,17 @@ function DateCounter() {
         </span>
         <span>{date.toDateString()}</span>
       </p>
+      {count !== 0 || step !== 1 ? (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      ) : null}
     </div>
   );
 }
